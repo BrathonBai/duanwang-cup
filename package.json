@@ -1,0 +1,1 @@
+{"name":"cactus-cup","version":"0.4.0","private":true,"description":"断网杯 · 断网后的奔跑，赛博朋克的浪漫与黑色幽默（局域网派对跑酷；像素/Deepseek女仆/橙发女仆三形象）","main":"server.js","scripts":{"start":"node server.js"}}

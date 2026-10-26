@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>鏂綉鏉?路 浣滃搧灏侀潰</title>
+<style>
+  :root{
+    --bg:#070708;
+    --ink:#0b0b0d;
+    --paper:#f2efe6;
+    --yellow:#ffd400;
+    --pink:#ff2e8a;
+    --green:#7ed957;
+    --cyan:#58d6ff;
+    --muted:#9b9ba4;
+  }
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased}
+  html,body{margin:0;padding:0;background:var(--bg)}
+  body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans SC",sans-serif;color:var(--paper)}
+  #cover{position:relative;width:1600px;height:1200px;overflow:hidden;background:
+      radial-gradient(900px 700px at 86% 4%, rgba(255,46,138,.20), transparent 62%),
+      radial-gradient(760px 620px at 4% 96%, rgba(88,214,255,.13), transparent 60%),
+      radial-gradient(620px 520px at 30% 34%, rgba(255,212,0,.10), transparent 64%),
+      linear-gradient(180deg,#08080a 0%, #060607 58%, #0a0a0c 100%);}
+  #cover::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:repeating-linear-gradient(180deg, rgba(255,255,255,.022) 0 1px, transparent 1px 4px);
+    mix-blend-mode:overlay;opacity:.5}
+  .grid{position:absolute;left:-80px;top:-40px;width:1760px;height:640px;
+    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);
+    background-size:56px 56px;opacity:.32;
+    -webkit-mask-image:radial-gradient(760px 420px at 50% 24%, #000 0%, transparent 78%);
+            mask-image:radial-gradient(760px 420px at 50% 24%, #000 0%, transparent 78%);}
+
+  /* ---------- top bar ---------- */
+  .top{position:absolute;left:78px;top:44px;width:1444px;display:flex;align-items:center;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:16px}
+  .mark{width:58px;height:58px;border-radius:15px;background:var(--yellow);border:3px solid #000;
+    box-shadow:5px 5px 0 var(--pink);display:grid;place-items:center}
+  .mark svg{width:34px;height:34px;color:#123d12}
+  .brand b{font-size:31px;letter-spacing:3px;font-weight:900}
+  .brand i{font-style:normal;font-size:15px;letter-spacing:4px;color:#8f8f98;margin-left:6px;font-weight:700}
+  .topmeta{display:flex;align-items:center;gap:16px}
+  .live{display:flex;align-items:center;gap:9px;background:var(--pink);color:#12000a;font-weight:900;
+    font-size:17px;letter-spacing:3px;padding:8px 15px;border-radius:999px;border:2px solid #000}
+  .live s{width:9px;height:9px;border-radius:50%;background:#12000a;display:block;text-decoration:none}
+  .room{font-size:16px;letter-spacing:3px;color:#b9b9c0;border:1.5px solid #33333a;padding:8px 16px;border-radius:999px}
+  .clock{font-family:Consolas,"Courier New",monospace;font-size:26px;font-weight:700;color:var(--yellow);letter-spacing:1px}
+
+  /* ---------- hero ---------- */
+  h1.title{position:absolute;left:76px;top:112px;margin:0;font-size:200px;line-height:.84;letter-spacing:2px;
+    font-weight:900;color:var(--yellow);-webkit-text-stroke:6px #050505;paint-order:stroke fill;
+    text-shadow:13px 13px 0 var(--pink), 26px 26px 0 rgba(0,0,0,.5);}
+  .heroside{position:absolute;left:812px;top:142px;width:710px}
+  .kicker{font-size:16px;letter-spacing:5px;color:var(--pink);font-weight:900;margin-bottom:20px}
+  .kicker span{color:#8f8f98;letter-spacing:2px}
+  .tagline{margin:0 0 22px;font-size:43px;line-height:1.4;font-weight:900;letter-spacing:1px}
+  .tagline u{text-decoration:none;color:var(--pink)}
+  .tagline em{font-style:normal;color:var(--yellow)}
+  .subline{margin:0;font-size:20px;line-height:1.7;color:#b0b0b8;font-weight:700;letter-spacing:.5px}
+  .subline b{color:var(--paper)}
+
+  /* ---------- section label ---------- */
+  .sec{position:absolute;left:78px;top:404px;width:1444px;display:flex;align-items:center;gap:18px;
+    font-size:15px;letter-spacing:4px;color:#77777f;font-weight:800}
+  .sec::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#2c2c33,rgba(44,44,51,0))}
+  .sec b{color:var(--yellow);font-size:16px}
+
+  /* ---------- screenshot cards ---------- */
+  .cards{position:absolute;left:78px;top:442px;width:1444px;display:flex;gap:30px}
+  .card{position:relative;width:461px;height:296px;border:3px solid rgba(255,212,0,.9);border-radius:9px;
+    overflow:hidden;background:#111;box-shadow:11px 11px 0 rgba(255,46,138,.26)}
+  .card img{width:100%;height:100%;object-fit:cover;display:block}
+  .card .cap{position:absolute;left:0;right:0;bottom:0;padding:40px 18px 14px;
+    background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.82) 52%,rgba(0,0,0,.94) 100%)}
+  .card .cap b{display:block;font-size:23px;letter-spacing:1px;font-weight:900;margin-bottom:3px}
+  .card .cap span{display:block;font-size:13px;letter-spacing:2.5px;font-weight:800;color:var(--yellow);text-transform:uppercase}
+  .card .no{position:absolute;left:14px;top:12px;font-family:Consolas,monospace;font-size:15px;font-weight:700;
+    color:#0a0a0a;background:var(--yellow);border-radius:6px;padding:2px 8px;letter-spacing:1px}
+  .card.c2 .cap span{color:var(--cyan)}
+  .card.c3 .cap span{color:var(--green)}
+
+  /* ---------- features ---------- */
+  .features{position:absolute;left:78px;top:790px;width:1444px;display:flex;gap:26px}
+  .feat{position:relative;width:341px;height:198px;border:2px solid #26262c;border-radius:12px;
+    background:linear-gradient(165deg,#111114 0%,#0a0a0c 100%);padding:20px 22px;overflow:hidden}
+  .feat::after{content:"";position:absolute;right:-46px;bottom:-64px;width:150px;height:150px;border-radius:50%;
+    background:var(--ac);opacity:.12;filter:blur(6px)}
+  .feat .ico{width:44px;height:44px;border-radius:12px;border:2px solid var(--ac);color:var(--ac);
+    display:grid;place-items:center;margin-bottom:12px}
+  .feat .ico svg{width:25px;height:25px}
+  .feat h3{margin:0 0 8px;font-size:26px;font-weight:900;letter-spacing:1px;color:var(--paper)}
+  .feat p{margin:0;font-size:16px;line-height:1.6;color:#96969e;font-weight:600}
+  .feat p b{color:#d8d8de}
+  .f1{--ac:var(--yellow)} .f2{--ac:var(--pink)} .f3{--ac:var(--green)} .f4{--ac:var(--cyan)}
+
+  /* ---------- cta + footer ---------- */
+  .cta{position:absolute;left:78px;top:1024px;width:1444px;height:84px;border-radius:12px;background:var(--yellow);
+    box-shadow:12px 12px 0 var(--pink);display:flex;align-items:center;justify-content:space-between;padding:0 30px}
+  .cta .left{font-size:35px;font-weight:900;letter-spacing:2px;color:#0a0a0c}
+  .cta .right{display:flex;align-items:center;gap:20px}
+  .cta .hint{font-size:16px;font-weight:800;color:#3a3000;letter-spacing:1px}
+  .cta code{font-family:Consolas,"Courier New",monospace;font-size:22px;font-weight:700;background:#0a0a0c;
+    color:var(--yellow);padding:10px 16px;border-radius:7px;letter-spacing:.5px}
+  .footer{position:absolute;left:78px;top:1140px;width:1444px;display:flex;justify-content:space-between;align-items:center;
+    font-size:14px;letter-spacing:3px;color:#6f6f78;font-weight:700}
+  .footer b{color:#9b9ba4}
+</style>
+</head>
+<body>
+<div id="cover">
+  <div class="grid"></div>
+
+  <header class="top">
+    <div class="brand">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21.2V7.2a2.6 2.6 0 0 1 5.2 0v1.4"/>
+          <path d="M12 13.4H7.6a2.2 2.2 0 0 1-2.2-2.2V8.6"/>
+          <path d="M12 17.4h4.8a2.2 2.2 0 0 0 2.2-2.2v-3"/>
+        </svg>
+      </span>
+      <b>鏂綉鏉?/b><i>THE OFFLINE CUP</i>
+    </div>
+    <div class="topmeta">
+      <span class="live"><s></s>LIVE</span>
+      <span class="room">CUP-001 路 灞€鍩熺綉娲惧璺戦叿</span>
+      <span class="clock">00:42</span>
+    </div>
+  </header>
+
+  <h1 class="title">鏂綉鏉?/h1>
+  <section class="heroside">
+    <div class="kicker">THE OFFLINE CUP <span>路 鏂綉涔嬪悗锛屽彧鍓╄繖鏉¤禌閬?/span></div>
+    <p class="tagline">鏂綉鍚庣殑濂旇窇锛?br><u>鏄禌鍗氭湅鍏嬬殑娴极</u><br>涓?em>榛戣壊骞介粯</em>銆?/p>
+    <p class="subline">澶у睆鏄禌閬擄紝鎵嬫満鏄墜鏌勶紱<b>1024 绫?/b>鍚庯紝鍏ㄩ槦涓€璧锋墦<b>缁堟瀬浠欎汉鎺岀帇</b>銆?/p>
+  </section>
+
+  <div class="sec"><b>鏂綉鍚庣殑鍚嶅満闈?/b> 01 鈥?03</div>
+
+  <section class="cards">
+    <figure class="card c1" style="margin:0">
+      <span class="no">01</span>
+      <img src="./water.png" alt="鐤媯姘翠笘鐣?>
+      <figcaption class="cap"><b>鐤媯姘翠笘鐣?路 姘翠笂璺?/b><span>560鈥?00m 路 璺娣逛簡锛屾瘮璧涗笉鏆傚仠</span></figcaption>
+    </figure>
+    <figure class="card c2" style="margin:0">
+      <span class="no">02</span>
+      <img src="./roadster.png" alt="Tesla Roadster 鍠锋皵璧烽">
+      <figcaption class="cap"><b>Tesla Roadster 路 鍠锋皵璧烽</b><span>鍏ㄥ憳涓婅溅 路 椋炶秺璧涢亾 路 淇啿鎾炵帇</span></figcaption>
+    </figure>
+    <figure class="card c3" style="margin:0">
+      <span class="no">03</span>
+      <img src="./boss.png" alt="缁堟瀬浠欎汉鎺岀帇">
+      <figcaption class="cap"><b>1024 绫冲悗 路 缁堟瀬浠欎汉鎺岀帇</b><span>鍐茬嚎涓嶆槸缁堢偣 路 鍏ㄩ槦鎶曟幏鍥存</span></figcaption>
+    </figure>
+  </section>
+
+  <section class="features">
+    <div class="feat f1">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.4"/><path d="M10.6 18.4h2.8"/></svg></span>
+      <h3>鎵嬫満褰撴墜鏌?/h3>
+      <p>鎵ぇ灞忎簩缁寸爜鍏ュ満锛?b>闆跺畨瑁?/b>锛涙í灞忔槸鍏ㄥ睆璧涢亾锛岀珫灞忔槸宸﹀彸鎵嬫寜閽€?/p>
+    </div>
+    <div class="feat f2">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.6l1.9 5.3 5.3 1.9-5.3 1.9L12 17l-1.9-5.3L4.8 9.8l5.3-1.9L12 2.6z"/><path d="M18.6 16.4l.9 2.5 2.5.9-2.5.9-.9 2.5-.9-2.5-2.5-.9 2.5-.9.9-2.5z"/></svg></span>
+      <h3>璁告効寮忕紪绋?/h3>
+      <p>涓€鍙ヤ汉璇濇敼鍙樻瘮璧涳細<b>銆岀粰绗竴鍚嶆潵涓€鏍逛粰浜烘帉銆?/b>銆傛湰鍦拌鍒欒В鏋愶紝鏂綉涔熻兘鐢ㄣ€?/p>
+    </div>
+    <div class="feat f3">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V6.4a2.5 2.5 0 0 1 5 0v2.2"/><path d="M12 13.6H7.4a1.8 1.8 0 0 1-1.8-1.8V9.2"/><path d="M12 17.6h4.8"/></svg></span>
+      <h3>鍚屽睆绔為€?路 8 浜?/h3>
+      <p>鎵€鏈変汉鎸ゅ湪涓€鏉¤禌閬撲笂璺戙€佹暣铔娿€佽鎰匡紱澶у睆瑙ｈ锛岃浼楀腑澶氭満浣嶅垎灞忋€?/p>
+    </div>
+    <div class="feat f4">
+      <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7V2.8"/><path d="M15 7V2.8"/><rect x="4.2" y="7" width="15.6" height="7.6" rx="3.8"/><path d="M10 14.6v6.6h4v-6.6"/></svg></span>
+      <h3>鏂綉鍙敤 路 闆朵緷璧?/h3>
+      <p><b>0 涓?npm 渚濊禆</b>锛屼竴鏉″懡浠ゅ紑璧涳紱浜岀淮鐮併€佽鎰胯В鏋愬叏閮ㄨ窇鍦ㄦ湰鍦般€?/p>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div class="left">鏂綉涔嬪悗锛?b>鍙墿杩欐潯璧涢亾銆?/b></div>
+    <div class="right">
+      <span class="hint">闆朵緷璧?路 灞€鍩熺綉寮€璧?/span>
+      <code>node server.js</code>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>鏂綉鏉?路 灞€鍩熺綉娲惧璺戦叿 路 娓告垙璧涢亾</span>
+    <span><b>1024m</b> 路 鎵嬫満鎵爜鍗崇帺 路 鏂綉涔熻兘璁告効</span>
+    <span>THE OFFLINE CUP 路 2026</span>
+  </footer>
+</div>
+</body>
+</html>
+

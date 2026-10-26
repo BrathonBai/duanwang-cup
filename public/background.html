@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>断网杯 · 观众席</title>
+<style>
+  :root{--ink:#080808;--paper:#f2eee3;--yellow:#ffd23f;--pink:#ff3fa4;--cyan:#27d3ee;--lime:#a8e63a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;overflow:hidden;background:var(--ink);color:var(--paper);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif}
+  #app{height:100%;display:flex;flex-direction:column}
+
+  header{
+    height:56px;flex:0 0 56px;display:flex;align-items:center;gap:18px;padding:0 18px;
+    background:#0b0b0b;border-bottom:2px solid var(--yellow);
+  }
+  .brand{font-weight:900;font-size:20px;letter-spacing:1px;display:flex;align-items:baseline;gap:8px}
+  .brand small{font-size:10px;letter-spacing:4px;color:#777;font-weight:700}
+  .live{display:flex;align-items:center;gap:6px;background:var(--pink);color:#fff;
+    font-size:11px;font-weight:900;letter-spacing:2px;padding:3px 8px}
+  .live i{width:6px;height:6px;border-radius:50%;background:#fff;animation:blink 1s infinite}
+  @keyframes blink{0%,49%{opacity:1}50%,100%{opacity:.15}}
+  .spacer{flex:1}
+  #phase{font-size:11px;letter-spacing:2px;color:#888;border:1px solid #333;padding:4px 9px}
+  #clock{font-family:"SF Mono",ui-monospace,Menlo,monospace;font-size:18px;color:var(--yellow);font-weight:700}
+  .hint{font-size:10px;color:#555;letter-spacing:1px}
+
+  #grid{flex:1;display:grid;gap:7px;padding:7px;min-height:0;
+    grid-template-columns:repeat(var(--cols,2),1fr);
+    grid-template-rows:repeat(var(--rows,2),1fr);}
+
+  .cell{position:relative;background:#070707;border:2px solid var(--c,#333);overflow:hidden;min-width:0;min-height:0}
+  .cell canvas{display:block;width:100%;height:100%}
+  .cell .tag{
+    position:absolute;left:0;top:0;display:flex;align-items:center;gap:8px;
+    background:rgba(8,8,8,.72);border-right:2px solid var(--c);border-bottom:2px solid var(--c);
+    padding:4px 10px 4px 8px;font-size:12px;font-weight:900;letter-spacing:.5px;
+  }
+  .cell .tag b{color:var(--c);font-size:13px}
+  .cell .tag em{font-style:normal;font-family:"SF Mono",monospace;font-size:11px;color:#ffd23f;font-weight:700}
+  .cell .tag u{text-decoration:none;font-size:11px;color:#ff5aa0;letter-spacing:1px}
+  .cell.dead{filter:grayscale(1) brightness(.55)}
+  .cell .out{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-size:26px;font-weight:900;
+    letter-spacing:6px;color:rgba(255,63,164,.85);text-shadow:0 0 18px rgba(255,63,164,.4);
+  }
+  .cell .out small{display:block;font-size:10px;letter-spacing:2px;color:#777;text-shadow:none;text-align:center;margin-top:6px}
+  .cell.finished .tag{background:rgba(255,210,63,.9);color:#000}
+  .cell.finished .tag b{color:#000}
+  .empty{grid-column:1/-1;grid-row:1/-1;display:grid;place-items:center;text-align:center;gap:10px;color:#555}
+  .empty b{font-size:40px;color:var(--yellow);letter-spacing:4px;display:block}
+  .empty span{font-size:13px;letter-spacing:2px}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">🌵 断网杯 <small>观众席 · 多机位</small></div>
+    <div class="live"><i></i>LIVE</div>
+    <div class="spacer"></div>
+    <div id="phase">等待选手</div>
+    <div id="clock">00:00</div>
+    <div class="hint">每格 = 一位选手的视角</div>
+  </header>
+  <main id="grid"></main>
+</div>
+<script src="/shared.js"></script>
+<script src="/background.js"></script>
+</body>
+</html>

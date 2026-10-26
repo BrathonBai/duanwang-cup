@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;height:100%;background:#070707;overflow:hidden}
+  .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 150px;
+    box-sizing:border-box;font-family:"PingFang SC","Hiragino Sans GB",sans-serif;color:#f2eee3}
+  .left{display:flex;flex-direction:column;gap:18px}
+  h1{margin:0;font-size:150px;font-weight:900;letter-spacing:8px;color:#ffd23f;
+    text-shadow:10px 10px 0 #ff3fa4;line-height:1}
+  .joke{font-size:64px;font-weight:900;color:#ff3fa4;letter-spacing:6px}
+  .sub{font-size:26px;letter-spacing:6px;color:#b9b2a3}
+  .qr{background:#ffd23f;padding:18px;box-shadow:12px 12px 0 #22d3ee}
+  .qr img,.qr canvas{display:block;width:300px;height:300px}
+  .url{margin-top:14px;text-align:center;font-family:"SF Mono",monospace;font-size:20px;color:#0a0a0a;font-weight:700}
+</style></head><body>
+<div class="wrap">
+  <div class="left">
+    <div class="sub">断 网 之 后 · 只 剩 这 条 赛 道</div>
+    <h1>断网杯</h1>
+    <div class="joke">逗你玩的。</div>
+  </div>
+  <div>
+    <div class="qr"><canvas id="qr" width="300" height="300"></canvas></div>
+    <div class="url">扫码上场</div>
+  </div>
+</div>
+<script src="/vendor/qrcode.js"></script>
+<script>
+(async () => {
+  let base = location.origin;
+  try {
+    const s = await fetch('/api/state').then(r => r.json());
+    base = s.baseUrl || base;
+  } catch { }
+  const url = `${base}/pad`;
+  const qr = qrcode(0, 'M'); qr.addData(url); qr.make();
+  const c = document.getElementById('qr'), g = c.getContext('2d');
+  const n = c.width, count = qr.getModuleCount();
+  const cell = Math.max(2, Math.floor(n / (count + 8)));
+  const off = Math.floor((n - cell * count) / 2);
+  g.fillStyle = '#fffdf5'; g.fillRect(0, 0, n, n);
+  g.fillStyle = '#0b0b0b';
+  for (let r = 0; r < count; r++) for (let col = 0; col < count; col++) {
+    if (qr.isDark(r, col)) g.fillRect(off + col * cell, off + r * cell, cell, cell);
+  }
+})();
+</script>
+</body></html>

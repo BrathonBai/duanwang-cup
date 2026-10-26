@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>断网杯</title>
+<link rel="stylesheet" href="/screen.css">
+</head>
+<body>
+<div id="carHint" class="hidden">按 <b>F</b> 键呼叫载具</div>
+<div id="app">
+
+  <header id="hud">
+    <div class="brand">
+      <div class="logo">🌵 断网杯</div>
+      <div class="sub">断网之后，只剩这条赛道</div>
+    </div>
+    <div class="hud-mid">
+      <div class="live"><i></i>LIVE</div>
+      <div class="room" id="roomCode">CUP-001</div>
+      <div class="kbdhint hidden" id="kbdHint"></div>
+    </div>
+    <div class="hud-right">
+      <div class="clock"><b id="clock">00:00</b></div>
+      <div class="phase" id="phaseTag">等待选手</div>
+    </div>
+  </header>
+
+  <main id="stage">
+    <canvas id="track"></canvas>
+
+    <!-- 解说指令 -->
+    <div id="decree" class="decree hidden">
+      <div class="d-tag">解说指令</div>
+      <div class="d-text" id="decreeText"></div>
+      <div class="d-bar"><i id="decreeBar"></i></div>
+    </div>
+
+    <!-- 倒计时 -->
+    <div id="countdown" class="countdown hidden"><span id="cdNum">3</span></div>
+
+    <!-- 大厅 -->
+    <div id="lobby" class="overlay">
+      <div class="lobby-head">
+        <h1>选手入场</h1>
+        <p>网络已断开。本场由一台笔记本继续直播。手机连同一个 Wi-Fi 扫码入场；不想掏手机，就点「⌨ 键盘入场」。</p>
+      </div>
+      <div class="lobby-body">
+        <div id="cards" class="cards"></div>
+        <aside class="joinbox">
+          <div class="qrtabs">
+            <button id="tabPad" class="qtab on">🎮 手柄</button>
+            <button id="tabWish" class="qtab">✨ 许愿</button>
+          </div>
+          <div class="qrwrap"><canvas id="qr" width="240" height="240"></canvas></div>
+          <div class="joinurl" id="joinUrl">192.168.0.11:3000/pad</div>
+          <div class="joinhint" id="joinHint">扫码 → 输入名字 → 开跑</div>
+          <div class="wishhint">现场许愿：按 <b>W</b>，或扫「许愿」</div>
+        </aside>
+      </div>
+      <div class="lobby-foot">
+        <button id="startBtn" class="bigbtn">开始比赛 <kbd>SPACE</kbd></button>
+        <button id="kbdBtn" class="ghostbtn">⌨ 键盘入场</button>
+        <button id="botBtn" class="ghostbtn">+ 加一个机器人</button>
+        <button id="clearBtn" class="ghostbtn">清场</button>
+        <button id="muteBtn" class="ghostbtn">🔊 解说开</button>
+      </div>
+    </div>
+
+    <!-- 结算 -->
+    <div id="result" class="overlay result hidden">
+      <div class="r-kicker">FINAL RESULT</div>
+      <div class="r-title" id="rTitle">冠军</div>
+      <div class="r-name" id="rName">—</div>
+      <div class="r-report" id="rReport"></div>
+      <div class="r-stats" id="rStats"></div>
+      <div class="r-btns">
+        <button id="againBtn" class="bigbtn">再来一局 <kbd>SPACE</kbd></button>
+        <button id="lobbyBtn" class="midbtn">返回开始页 <kbd>ESC</kbd></button>
+      </div>
+    </div>
+
+    <!-- 慢镜头回放 -->
+    <div id="pip" class="pip hidden">
+      <canvas id="pipCanvas" width="420" height="236"></canvas>
+      <div class="pip-tag"><i></i>慢镜头回放</div>
+      <div class="pip-name" id="pipName"></div>
+    </div>
+
+    <!-- 观战提示 -->
+    <div id="spec" class="spec hidden"></div>
+
+    <!-- 成就弹窗 -->
+    <div id="achStack" class="ach-stack"></div>
+
+    <!-- 被整提示 -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- 许愿池：现场键盘许愿 -->
+    <div id="wishBox" class="wishbox hidden">
+      <div class="wb-tag">✨ 许愿池 · 现场版</div>
+      <input id="wishInput" maxlength="60" autocomplete="off" placeholder="例：给第一名来一根仙人掌">
+      <div class="wb-foot"><span>Enter 许愿 · Esc 关闭</span><b id="wishMsg"></b></div>
+    </div>
+
+    <!-- 许愿横幅 -->
+    <div id="wishBanner" class="wishbanner hidden"></div>
+
+    <!-- 疯狂水世界 -->
+    <div id="waterBanner" class="waterbanner hidden">
+      <div class="wb1">⚠ 前方路段被淹</div>
+      <div class="wb2">疯狂水世界，启动！</div>
+      <div class="wb3">开局一定要选海水过滤器</div>
+    </div>
+  </main>
+
+  <footer id="lower">
+    <div class="lt">
+      <div class="lt-tag">解说 <b>001</b></div>
+      <div class="lt-text" id="subtitle">欢迎来到断网杯。</div>
+    </div>
+    <div class="feed" id="feed"></div>
+  </footer>
+
+</div>
+<script src="/vendor/qrcode.js"></script>
+<script src="/shared.js?v=2"></script>
+<script src="/screen.js"></script>
+</body>
+</html>
