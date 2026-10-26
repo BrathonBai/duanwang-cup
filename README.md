@@ -6,6 +6,9 @@
 跑到 **1024 米**，终点没有奖杯，只有**终极仙人掌王**——然后它变成横版雷电。
 网络断了，直播还在；中间还会路过被淹的**疯狂水世界**，和一辆会喷气起飞的 **Tesla Roadster**。
 
+**云端版：https://duanwang.fiddling.work**（Cloudflare Workers + Durable Objects，不依赖本地电脑；源码在 `cloudflare/`）。
+本地离线版仍然零依赖：`node server.js`。
+
 ![同屏竞速](docs/game.png)
 
 ![Boss 战](docs/boss.png)
