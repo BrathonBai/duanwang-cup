@@ -18,3 +18,4 @@ _build/
 .wrangler/
 skills/
 .preview/
+private/

@@ -35,10 +35,10 @@ node server.js          # 或 npm start
 ### 飞机/热点模式（一台电脑开房，全舱加入）
 
 - 笔记本开热点（或带旅行路由器），其他人连同一个 Wi-Fi；跑 `node server.js` 即可，**不需要互联网**。
-- 二维码/手柄地址会优先选热点网段（Windows ICS `192.168.137.1`、Android `192.168.42/43.x` 等）；如果现场 IP 还是不对，显式指定：
+- 二维码/手柄地址会优先选热点网段（Windows ICS `192.168.x.x`、Android `192.168.42/43.x` 等）；如果现场 IP 还是不对，显式指定：
   ```bash
-  set HOST_IP=192.168.137.1 && node server.js        # Windows cmd
-  $env:HOST_IP="192.168.137.1"; node server.js       # PowerShell
+  set HOST_IP=192.168.x.x && node server.js        # Windows cmd
+  $env:HOST_IP="192.168.x.x"; node server.js       # PowerShell
   ```
 - Windows 防火墙弹窗选「允许访问」，且网络类型设为「专用」。
 - 断网只影响外网；本机 Node、SSE、二维码、许愿解析、所有图片字体都在本地。
